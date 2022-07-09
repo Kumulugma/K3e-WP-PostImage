@@ -96,13 +96,23 @@ class PostImage {
                 $toRegenerate->the_post();
 
                 $basedir = wp_upload_dir()['basedir'];
+                $file_meta = get_post_meta(get_the_id(), '_wp_attachment_metadata', true);
                 $file = get_post_meta(get_the_id(), '_wp_attached_file', true);
+
                 $image = wp_get_image_editor($basedir . '/' . $file);
                 $noExtension = substr($file, 0, -(strlen($file) - strpos($file, '.')));
 
                 if (!is_wp_error($image)) {
                     $image->resize(80, 80, true);
                     $image->save($basedir . '/' . $noExtension . '-80x80.jpg');
+                    $file_meta['sizes']['PostImage'] = [
+                        'file' => basename($basedir . '/' . $noExtension . '-80x80.jpg'),
+                        'width' => 80,
+                        'height' => 80,
+                        'mime-type' => 'image/jpeg',
+                        'filesize' => filesize($basedir . '/' . $noExtension . '-80x80.jpg')
+                    ];
+                    update_post_meta(get_the_id(), '_wp_attachment_metadata', $file_meta);
                 }
             }
         }
@@ -146,7 +156,7 @@ class PostImage {
             }
         }
 
-        add_action('save_post', 'k3e_filse_save_meta_box');
+        add_action('save_post', 'k3e_files_save_meta_box');
 
         add_action('wp_ajax_postimage_get_files', 'postimage_get_files');
 
@@ -154,11 +164,10 @@ class PostImage {
             if (isset($_GET['id'])) {
 
                 $ids = explode(",", $_GET['id']);
-                array_shift($ids);
                 $images = [];
 
                 foreach ($ids as $id) {
-                    $images[] = wp_get_attachment_image($id, 'big-icons', false, array('id' => 'preview-images', 'style' => 'margin-left: 5px;'));
+                    $images[] = wp_get_attachment_image($id, 'PostImage', false, array('id' => 'preview-images', 'style' => 'margin-right: 5px;'));
                 }
                 $data = array(
                     'images' => $images
@@ -169,6 +178,17 @@ class PostImage {
             }
         }
 
+    }
+
+    public static function getFiles($post_id) {
+        $post_images = get_post_meta($post_id, "post_files", true);
+        if (!empty($post_images)) {
+            $post_images = unserialize($post_images);
+            $post_images = explode(",", $post_images);
+        } else {
+            $post_images = [];
+        }
+        return $post_images;
     }
 
 }

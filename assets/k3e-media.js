@@ -26,6 +26,11 @@ jQuery(document).ready(function ($) {
                 gallery_ids[my_index] = attachment['id'];
                 my_index++;
             });
+            console.log(gallery_ids);
+            if (gallery_ids[0] == "") {
+                gallery_ids.shift();
+            }
+            console.log(gallery_ids);
             var ids = gallery_ids.join(",");
             if (ids.length === 0)
                 return true;//if closed withput selecting an image
@@ -38,6 +43,8 @@ jQuery(document).ready(function ($) {
             // and select the appropiate images in the media manager
             var selection = image_frame.state().get('selection');
             var ids = jQuery('input#post-images').val().split(',');
+            console.log(ids);
+
             ids.forEach(function (id) {
                 var attachment = wp.media.attachment(id);
                 attachment.fetch();
@@ -68,10 +75,6 @@ function Refresh_Image(the_id) {
         id: the_id
     };
 
-//    jQuery.each(the_id.split(","), function (index, value) {
-//        alert(index + ": " + value);
-//    });
-
     jQuery.get(ajaxurl, data, function (response) {
 
         if (response.success === true) {
@@ -79,9 +82,6 @@ function Refresh_Image(the_id) {
             jQuery.each(response.data.images, function (index, value) {
                 jQuery('#images-box').append(value);
             });
-            console.log(response.data.images);
-            console.log(jQuery('#post-images'));
-//            jQuery('#myprefix-preview-image').replaceWith(response.data.image);
         }
     });
 }

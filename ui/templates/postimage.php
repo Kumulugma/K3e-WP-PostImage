@@ -30,7 +30,6 @@
             <fieldset>
                 <h3><?=__('Zregeneruj miniaturki', 'k3e')?></h3>
                 <input type="hidden" value="<?= md5(rand(0, 255)) ?>" name="PostImage[regenerate]">
-                <input type="hidden" value="<?= md5(rand(0, 255)) ?>" name="PostImage[salt]">
                 <button class="button button-secondary" type="submit">Zapisz</button>
             </fieldset>
         </form>

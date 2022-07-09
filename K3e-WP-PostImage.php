@@ -17,6 +17,7 @@ function k3e_postimage_plugin_init() {
     do_action('k3e_postimage_plugin_init');
     if (is_admin()) {
         if (current_user_can('manage_options')) {
+            require_once 'ui/front.php';
             require_once 'ui/admin.php';
             PostImage::run();
         }
