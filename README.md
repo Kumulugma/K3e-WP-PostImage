@@ -6,5 +6,8 @@ Wtyczka pozwalajaca na przypisanie kilku plików bezpośrednio do CPT.
 ------------------
 ## Wersje
 
+0.1.1a
+- Modyfikacja struktury.
+
 0.0.1a
 - Podstawowe elementy.

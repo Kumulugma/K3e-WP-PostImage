@@ -1,31 +1,11 @@
 <?php
 
-class PostImage {
-
-    const POST_EXCLUDES = [
-        'attachment',
-        'revision',
-        'nav_menu_item',
-        'custom_css',
-        'customize_changeset',
-        'oembed_cache',
-        'user_request',
-        'wp_block',
-        'wp_template',
-        'wp_template_part',
-        'wp_global_styles',
-        'wp_navigation',
-        'acf-field-group',
-        'acf-field',
-        'wpcf7_contact_form'
-    ];
-    const OPTION_POSTIMAGE = '_k3e_postimages';
+class UIClassPostImageAdmin extends UIClassPostImage {
 
     public static function run() {
 
         add_action('admin_menu', 'postimage_menu');
-        add_image_size('PostImage', 80, 80, true);
-
+        
         function postimage_menu() {
 
             add_submenu_page(
@@ -55,11 +35,11 @@ class PostImage {
              */
         }
 
-        PostImage::SaveSettings();
-        PostImage::Files();
+        UIClassPostImageAdmin::SaveSettings();
+        UIClassPostImageAdmin::Files();
 
         function postimage_content() {
-            include plugin_dir_path(__FILE__) . 'templates/postimage.php';
+            include plugin_dir_path(__FILE__) . 'admin/templates/postimage.php';
         }
 
     }
@@ -78,7 +58,7 @@ class PostImage {
         }
 
         if (isset($_POST['PostImage']['regenerate'])) {
-            PostImage::simpleRegeneratePostImage();
+            UIClassPostImageAdmin::simpleRegeneratePostImage();
             wp_redirect('options-general.php?page=' . $_GET['page']);
         }
     }
@@ -124,7 +104,7 @@ class PostImage {
         add_action("add_meta_boxes", "files_meta_box");
 
         function files_meta_box() {
-            $option = unserialize(get_option(PostImage::OPTION_POSTIMAGE));
+            $option = unserialize(get_option(UIClassPostImageAdmin::OPTION_POSTIMAGE));
             $postImages = is_array($option) ? $option : [];
 
             foreach ($postImages as $type) {
@@ -136,7 +116,7 @@ class PostImage {
             wp_enqueue_media();
             wp_enqueue_script('K3e-Media', plugin_dir_url(__FILE__) . '../assets/k3e-media.js', array('jquery'), '0.1');
 
-            include plugin_dir_path(__FILE__) . 'templates/photos/form.php';
+            include plugin_dir_path(__FILE__) . 'admin/templates/photos/form.php';
         }
 
         function k3e_files_save_meta_box($post_id) {
@@ -178,17 +158,6 @@ class PostImage {
             }
         }
 
-    }
-
-    public static function getFiles($post_id) {
-        $post_images = get_post_meta($post_id, "post_files", true);
-        if (!empty($post_images)) {
-            $post_images = unserialize($post_images);
-            $post_images = explode(",", $post_images);
-        } else {
-            $post_images = [];
-        }
-        return $post_images;
     }
 
 }
