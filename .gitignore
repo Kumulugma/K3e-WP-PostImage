@@ -1,0 +1,23 @@
+# Editor files
+.idea/
+nbproject/
+
+# Environment files
+.env
+web.config
+
+# Log files
+*.log
+
+# Dump database files
+*.sql
+*.sqlite
+
+# SEO
+/readme*html
+/robots.txt
+/google*.html
+/sitemap.xml
+
+# Vendor files
+/vendor
