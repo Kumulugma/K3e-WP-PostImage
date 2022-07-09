@@ -8,7 +8,7 @@
   Author URI: https://www.k3e.pl/
   Text Domain:
   Domain Path:
-  Version: 0.1.1a
+  Version: 0.1.1b
  */
 
 add_action('init', 'k3e_postimage_plugin_init');
