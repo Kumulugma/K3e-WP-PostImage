@@ -1,4 +1,4 @@
-=== K3e-WP-Expenses ===
+=== K3e-WP-PostImage ===
 Contributors:
 Donate link: 
 Tags: 
