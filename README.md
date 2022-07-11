@@ -5,6 +5,8 @@
 Wtyczka pozwalajaca na przypisanie kilku plików bezpośrednio do CPT.
 ------------------
 ## Wersje
+0.1.1c
+- Usunięcie niepotrzebnych console.log.
 
 0.1.1b
 - Poprawka dla podstrony Ustawień.

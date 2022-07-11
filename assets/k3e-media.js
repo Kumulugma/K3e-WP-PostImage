@@ -26,11 +26,9 @@ jQuery(document).ready(function ($) {
                 gallery_ids[my_index] = attachment['id'];
                 my_index++;
             });
-            console.log(gallery_ids);
             if (gallery_ids[0] == "") {
                 gallery_ids.shift();
             }
-            console.log(gallery_ids);
             var ids = gallery_ids.join(",");
             if (ids.length === 0)
                 return true;//if closed withput selecting an image
@@ -43,8 +41,6 @@ jQuery(document).ready(function ($) {
             // and select the appropiate images in the media manager
             var selection = image_frame.state().get('selection');
             var ids = jQuery('input#post-images').val().split(',');
-            console.log(ids);
-
             ids.forEach(function (id) {
                 var attachment = wp.media.attachment(id);
                 attachment.fetch();
