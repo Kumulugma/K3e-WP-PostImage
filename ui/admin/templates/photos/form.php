@@ -11,7 +11,7 @@ if ($post_images) {
 }
 ?>
 <div id="images-box" data-default='<?= plugin_dir_url(__FILE__) . '../../../../images/default.png' ?>' style="padding-left: 5px;">
-<?php if (count($post_images) > 0) { ?>
+<?php if (count($post_images) > 0 &&  $post_images[0] != "") { ?>
         <?php foreach ($post_images as $image) { ?>
             <img src="<?= wp_get_attachment_image_url($image, 'PostImage') ?>" style="width: 80px; margin-right: 5px;" class="preview-images">
         <?php } ?>

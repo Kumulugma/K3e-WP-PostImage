@@ -5,6 +5,9 @@
 Wtyczka pozwalajaca na przypisanie kilku plików bezpośrednio do CPT.
 ------------------
 ## Wersje
+0.1.1d
+- Poprawka do wyświetlania po usunięciu obrazków.
+
 0.1.1c
 - Usunięcie niepotrzebnych console.log.
 
